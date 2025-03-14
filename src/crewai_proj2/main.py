@@ -1,9 +1,12 @@
 #!/usr/bin/env python
 from crewai.flow import Flow, listen, start
 from litellm import completion
-import os 
+from dotenv import load_dotenv
+import os
 
-os.environ['GEMINI_API_KEY'] = 'AIzaSyA_ZizxbIP8CRvmgKJZAzFTzpCrYO1HB1U'
+
+load_dotenv()  
+gemini_api_key = os.getenv("GEMINI_API_KEY")
 
 class PoemFlow(Flow):
 

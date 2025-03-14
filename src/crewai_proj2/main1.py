@@ -1,14 +1,20 @@
 
 from crewai.flow import Flow, start, listen, router
 from litellm import completion
+from dotenv import load_dotenv
+import os
+
+
+load_dotenv()  
+gemini_api_key = os.getenv("GEMINI_API_KEY")
+
 
 class RoutedFlow(Flow):
-    model = "gpt-4o-mini"
 
     @start()
     def generate_topic(self):
         response = completion(
-            model=self.model,
+            model = "gemini/gemini-1.5-flash",
             messages=[{"role": "user", "content": "Generate a blog topic for 2025."}]
         )
         topic = response["choices"][0]["message"]["content"].strip()
@@ -28,7 +34,7 @@ class RoutedFlow(Flow):
     @listen("tech_route")
     def generate_tech_outline(self, topic):
         response = completion(
-            model=self.model,
+            model = "gemini/gemini-1.5-flash",
             messages=[{"role": "user", "content": f"Create a detailed tech blog outline for: {topic}"}]
         )
         outline = response["choices"][0]["message"]["content"].strip()
@@ -39,15 +45,15 @@ class RoutedFlow(Flow):
     @listen("lifestyle_route")
     def generate_lifestyle_outline(self, topic):
         response = completion(
-            model=self.model,
+            model = "gemini/gemini-1.5-flash",
             messages=[{"role": "user", "content": f"Create a detailed lifestyle blog outline for: {topic}"}]
         )
         outline = response["choices"][0]["message"]["content"].strip()
         print("Lifestyle Outline:")
         print(outline)
         return outline
-
-if __name__ == "__main__":
+    
+def kickoff():
     flow = RoutedFlow()
     final_output = flow.kickoff()
     print("Final Output:")
