@@ -41,7 +41,7 @@ class DevFlow(Flow[DevState]):
     @listen(review_solution)
     def save_solution(self):
         print("Saving reviewed solution")
-        with open("reviewed_solution.py", "w") as f:
+        with open("reviewed_solution.md", "w") as f:
             f.write(self.state.reviewed_solution)
 
 

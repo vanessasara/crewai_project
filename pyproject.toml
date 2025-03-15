@@ -10,7 +10,7 @@ dependencies = [
 ]
 
 [project.scripts]
-kickoff = "crewai_proj2.main3:kickoff"
+kickoff = "crewai_proj2.main4:kickoff"
 plot = "crewai_proj2.main:plot"
 
 [build-system]
